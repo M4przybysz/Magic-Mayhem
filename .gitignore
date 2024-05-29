@@ -1,1 +1,8 @@
-/src/*
+# Directories
+.vscode/
+build/
+
+# Execs
+*.out
+*.exe
+
