@@ -1,4 +1,4 @@
-#pragma once
+#pragma once // do this (#define is cringe)
 
 class Card {
  public: // one space before classificator
