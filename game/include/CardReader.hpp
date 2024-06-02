@@ -52,7 +52,6 @@ class CardReader {
     std::string pathToCardList_;
     std::vector<std::string> file_;
 };
-
 }
 
 
