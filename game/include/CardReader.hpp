@@ -12,6 +12,7 @@ class CardReader {
     std::map<int, CardInfo> getCardsMap() { return cards_; }
     
     void openFile(const std::string& path);
+    bool isFileOpen();
 
  private:
     std::map<int, CardInfo> cards_;

@@ -12,3 +12,7 @@ void Reader::CardReader::openFile(const std::string& path) {
         file_.push_back(line);
     }
 }
+
+bool Reader::CardReader::isFileOpen() {
+    return !file_.empty();
+}
