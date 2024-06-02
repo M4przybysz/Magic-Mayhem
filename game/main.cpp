@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SDL/include/SDL2/SDL.h"
+#include "include/CardReader.hpp"
 
 
 int main(int argc, char *argv[]) {
