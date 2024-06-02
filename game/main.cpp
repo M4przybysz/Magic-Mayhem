@@ -1,9 +1,9 @@
 #include <iostream>
 #include "SDL/include/SDL2/SDL.h"
 
-const int WIDTH = 800, HEIGHT = 600;
 
 int main(int argc, char *argv[]) {
+    const int WIDTH = 800, HEIGHT = 600;
     SDL_Init(SDL_INIT_EVERYTHING);
 
     SDL_Window *Window = SDL_CreateWindow("test", 100, 100, WIDTH, HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI);
