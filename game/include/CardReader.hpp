@@ -5,21 +5,6 @@
 #include <vector>
 
 namespace Reader {
-class CardReader {
- public:
-    CardReader() {}
-
-    std::map<int, CardInfo> getCardsMap() { return cards_; }
-    
-    void openFile(const std::string& path);
-    bool isFileOpen();
-
- private:
-    std::map<int, CardInfo> cards_;
-    std::string pathToCardList_;
-    std::vector<std::string> file_;
-};
-
 class CardInfo {
  public:
     CardInfo() {}
@@ -52,6 +37,22 @@ class CardInfo {
     std::string description_;
     std::string imagePath_;
 };
+
+class CardReader {
+ public:
+    CardReader() {}
+
+    std::map<int, CardInfo> getCardsMap() { return cards_; }
+    
+    void openFile(const std::string& path);
+    bool isFileOpen();
+
+ private:
+    std::map<int, CardInfo> cards_;
+    std::string pathToCardList_;
+    std::vector<std::string> file_;
+};
+
 }
 
 
