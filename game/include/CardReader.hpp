@@ -46,6 +46,7 @@ class CardReader {
     
     void openFile(const std::string& path);
     bool isFileOpen();
+    void processFile();
 
  private:
     std::map<int, CardInfo> cards_;
