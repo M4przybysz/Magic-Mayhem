@@ -1,0 +1,27 @@
+---
+id:1
+name:"Card"
+attack:2
+hp:2
+cost:1
+points:2
+description:"Description"
+imagePath:"path"
+---
+id:2
+name:"Card with long name"
+attack:3
+hp:3
+cost:0
+points:1
+description:"Description with spaces"
+imagePath:"path2"
+---
+id:2137
+name:"Card with high ID number"
+attack:2
+hp:2
+cost:1
+points:4
+description:"Card with random very high id number"
+imagePath:"path\2137"
