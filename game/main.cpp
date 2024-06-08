@@ -11,14 +11,10 @@ int main(int argc, char *argv[]) {
 
     MagicMayhem->init("MAGIC MAYHEM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_ALLOW_HIGHDPI);
 
-    SDL_Event WindowEvent;
-
     while(MagicMayhem->isRunning()) {
-        if(SDL_PollEvent(&WindowEvent)) {
-            if(SDL_QUIT == WindowEvent.type) {
-                break;
-            }
-        }
+        MagicMayhem->handleEvents();
+        MagicMayhem->update();
+        MagicMayhem->render();
     }
 
     MagicMayhem->cleanSDL();
