@@ -1,21 +1,19 @@
-#include <iostream>
-#include <SDL2/SDL.h> // Makefile knows location of the library 
+// Include std c++ libraries
+
+// Include SDL2 libraries
+
+// Include local libraries
+#include "./include/app.hpp"
 
 int main(int argc, char *argv[]) {
-    const int WIDTH = 800, HEIGHT = 600;
+    // Create new App called "MagicMayhem"
+    std::unique_ptr<App> MagicMayhem = std::make_unique<App>();
 
-    SDL_Init(SDL_INIT_EVERYTHING);
-
-    SDL_Window *Window = SDL_CreateWindow("test", 100, 100, WIDTH, HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI);
-
-    if(Window == NULL) {
-        std::cerr << "Window not windowing!" << SDL_GetError() << "\n";
-        return 1;
-    }
+    MagicMayhem->init("MAGIC MAYHEM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_ALLOW_HIGHDPI);
 
     SDL_Event WindowEvent;
 
-    while(true) {
+    while(MagicMayhem->isRunning()) {
         if(SDL_PollEvent(&WindowEvent)) {
             if(SDL_QUIT == WindowEvent.type) {
                 break;
@@ -23,8 +21,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    SDL_DestroyWindow(Window);
-    SDL_Quit();
+    MagicMayhem->cleanSDL();
 
     return EXIT_SUCCESS;
 }
