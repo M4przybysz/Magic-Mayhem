@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
         MagicMayhem->render();
     }
 
-    MagicMayhem->cleanSDL();
+    MagicMayhem->clean();
 
     return EXIT_SUCCESS;
 }

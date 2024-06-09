@@ -29,5 +29,5 @@ class App {
     void update();
     void render();
 
-    void cleanSDL();
+    void clean();
 };
