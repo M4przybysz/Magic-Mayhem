@@ -7,8 +7,35 @@
 
 // Include local libraries
 
-App::App() { std::cout << "App created!\n"; }
+SDL_Renderer* App::renderer = nullptr;
+
+App::App() { 
+    std::cout << "App created!\n";
+
+    // Set default App mode
+    currentMode_ = Mode::MainMenu;
+    mode = std::make_unique<MainMenu>();
+    std::cout << "App is running in MainMenu (default) mode...\n"; 
+}
 App::~App() { std::cout << "App destroyed!\n"; }
+
+void App::setMode(Mode newMode) {
+    currentMode_ = newMode;
+    switch (newMode) {
+        case Mode::MainMenu:
+            mode = std::make_unique<MainMenu>();
+            break;
+        case Mode::Game:
+            mode = std::make_unique<Game>();
+            break;
+        case Mode::Settings:
+            mode = std::make_unique<Settings>();
+            break;
+        default:
+            break;
+    }
+}
+
 
 void App::init(const char* title, int x, int y, int width, int height, Uint32 flags) {
 
@@ -37,6 +64,9 @@ void App::init(const char* title, int x, int y, int width, int height, Uint32 fl
 }
 
 void App::handleEvents() {
+    mode->handleEvents();
+
+    //! NOTE: Make separate event handling for all modes or try to somehow combine them
     SDL_Event event;
     SDL_PollEvent(&event);
 
@@ -54,10 +84,13 @@ void App::handleEvents() {
 }
 
 void App::update() {
-
+    mode->update();
 }
 
 void App::render() {
+    mode->render();
+
+    //! NOtE: Put code below in all render methods or "mode->render()" in the middle 
     SDL_RenderClear(renderer);
 
     // Add stuff to render here
