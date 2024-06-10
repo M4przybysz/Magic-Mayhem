@@ -1,12 +1,6 @@
 // Include .hpp with the same name
 #include "../include/app.hpp"
 
-// Include std c++ libraries
-
-// Include SDL libraries
-
-// Include local libraries
-
 SDL_Renderer* App::renderer = nullptr;
 
 App::App() { 
@@ -23,12 +17,15 @@ void App::setMode(Mode newMode) {
     currentMode_ = newMode;
     switch (newMode) {
         case Mode::MainMenu:
+            std::cout << "Current mode: MainMenu\n";
             mode = std::make_unique<MainMenu>();
             break;
         case Mode::Game:
+            std::cout << "Current mode: Game\n";
             mode = std::make_unique<Game>();
             break;
         case Mode::Settings:
+            std::cout << "Current mode: Settings\n";
             mode = std::make_unique<Settings>();
             break;
         default:
@@ -64,12 +61,11 @@ void App::init(const char* title, int x, int y, int width, int height, Uint32 fl
 }
 
 void App::handleEvents() {
-    mode->handleEvents();
-
-    //! NOTE: Make separate event handling for all modes or try to somehow combine them
+    // Get new event
     SDL_Event event;
     SDL_PollEvent(&event);
 
+    // Handle basic App events
     switch(event.type) {
         case SDL_QUIT: // Close a window.
             isRunning_ = false;
@@ -81,6 +77,9 @@ void App::handleEvents() {
         default:
             break;
     }
+
+    // Handle events for specific App mode
+    mode->handleEvents(event);
 }
 
 void App::update() {
@@ -88,12 +87,10 @@ void App::update() {
 }
 
 void App::render() {
-    mode->render();
-
-    //! NOtE: Put code below in all render methods or "mode->render()" in the middle 
     SDL_RenderClear(renderer);
 
     // Add stuff to render here
+    mode->render();
 
     SDL_RenderPresent(renderer);
 }

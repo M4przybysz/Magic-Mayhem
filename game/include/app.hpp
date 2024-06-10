@@ -1,14 +1,16 @@
 #pragma once // #pragma once
 
-// include std c++ libraries
+// include c++ headers
 #include <iostream>
 #include <memory>
 
-// Include SDL2 libraries
+// Include SDL2 headers
 #include <SDL2/SDL.h>
 
-// include local libraries
-#include "./app_mode.hpp"
+// include local headers
+#include "./main_menu.hpp"
+#include "./game.hpp"
+#include "./settings.hpp"
 
 class App {
  public:
@@ -17,6 +19,11 @@ class App {
 
     enum class Mode { MainMenu, Game, Settings }; // Enum class with all application modes
     void setMode(Mode newMode); // Method used for switching App modes
+
+    static App& getInstance() {
+        static App instance;
+        return instance;
+    }
 
     static SDL_Renderer *renderer;
 
