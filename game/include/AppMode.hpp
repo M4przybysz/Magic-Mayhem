@@ -7,8 +7,8 @@
 // App modes: MainMenu, Game, Settings
 class AppMode {
  public:
-    virtual ~AppMode() {}
-    virtual void handleEvents(SDL_Event event) {}
-    virtual void update() {}
-    virtual void render() {}
+    virtual ~AppMode() = 0;
+    virtual void handleEvents(SDL_Event event) = 0;
+    virtual void update() = 0;
+    virtual void render() = 0;
 };
