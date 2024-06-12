@@ -6,5 +6,5 @@ Card::Card() {
     cost_ = 1;
 }
 Card::Card(const int& cost) : cost_(cost) { // use initialization lists, 'cause they are cool
-  // look, it's empty *how fancy*
+    // look, it's empty *how fancy*
 }
