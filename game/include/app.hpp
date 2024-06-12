@@ -1,8 +1,8 @@
 #pragma once
 
 // Local Headers
-#include "./MainMenu.hpp"
 #include "./Game.hpp"
+#include "./MainMenu.hpp"
 #include "./Settings.hpp"
 
 // SDL Headers
@@ -27,6 +27,7 @@ class App {
 
     void setMode(Mode newMode); 
 
+    // Basicaly return self?
     static App& getInstance() {
         static App instance;
         return instance;
@@ -40,6 +41,7 @@ class App {
     void render();
 
     static SDL_Renderer* renderer;
+
  private:
     bool isRunning_ = false;
     SDL_Window* window_;

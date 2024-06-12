@@ -39,23 +39,28 @@ void App::setMode(Mode newMode) {
 }
 
 void App::init(const std::string& title, const int& x, const int& y, const int& width, const int& height, const unsigned int& flags) {
-
+    // Init all SDL shit or it won't work
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         std::clog << "SDL initialized...\n";
 
+        // App needs SDL initialized to do anything
         window_ = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
-        if(window_) { std::clog << "Window created...\n"; }
-        else { std::cerr << "Couldn't create a window!\n"; }
+        if(window_) { 
+            std::clog << "Window created...\n"; 
+            
+            // App needs a window_ to create renderer
+            renderer = SDL_CreateRenderer(window_, 1, 0);
+            if(renderer) { 
+                std::clog << "Renderer created...\n";
+                SDL_SetRenderDrawColor(renderer, 127, 0, 255, 255);
 
-        renderer = SDL_CreateRenderer(window_, 1, 0);
-        if(renderer) { 
-            std::clog << "Renderer created...\n";
-            SDL_SetRenderDrawColor(renderer, 127, 0, 255, 255);
+                // App needs a renderer to display everything
+                isRunning_ = true;
+                std::clog << "Magic Mayhem is running!!!\n";
+            }
+            else { std::cerr << "Couldn't create a renderer!\n"; }
         }
-        else { std::cerr << "Couldn't create a renderer!\n"; }
-
-        isRunning_ = true;
-        std::clog << "Magic Mayhem is running!!!\n";
+        else { std::cerr << "Couldn't create a window!\n"; }
     }
     else {
         std::cerr << "Couldn't initialize SDL!\n";
@@ -76,7 +81,7 @@ void App::handleEvents() {
             std::clog << "Window closed...\n";
             break;
         
-        // Add more events to handle here
+        // Add more events to be handled here
 
         default:
             break;
@@ -87,14 +92,16 @@ void App::handleEvents() {
 }
 
 void App::update() {
-    mode->update();
+    mode->update(); // "No shit, Sherlock." It just looks funy
 }
 
 void App::render() {
+    // Clear renderer to show new things on screen
     SDL_RenderClear(renderer);
 
     // Add stuff to render here
     mode->render();
 
+    // Show things on screen
     SDL_RenderPresent(renderer);
 }

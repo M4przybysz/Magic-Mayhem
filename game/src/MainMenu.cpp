@@ -8,7 +8,6 @@
 // Local Headers
 #include <iostream>
 
-
 void MainMenu::handleEvents(SDL_Event event) {
     switch (event.type) {
         case SDL_KEYDOWN:
@@ -31,7 +30,7 @@ void MainMenu::handleEvents(SDL_Event event) {
 }
 
 void MainMenu::update() {
-
+    // Don't know if it is needed for main menu, but we may add some funny stuff here
 }
 
 void MainMenu::render() {

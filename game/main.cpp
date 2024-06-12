@@ -1,12 +1,13 @@
-// Include c++ headers
-
-// Include SDL2 headers
-
-// Include local headers
-#include "./include/app.hpp"
+// Local Headers
+#include "./include/App.hpp"
 #include "./include/CardReader.hpp"
 
+// SDL Headers
+
+// C++ Headers
+
 int main(int argc, char *argv[]) {
+    // Create new File reader responsible for reading cards data from cards.list file
     std::shared_ptr<CardReader> reader = std::make_shared<CardReader>(CardReader());
 
     reader->openFile("./cards.list");
@@ -15,10 +16,9 @@ int main(int argc, char *argv[]) {
         std::cerr << "Error: File not opened!\n";
         return 1;
     }
-    else {
-        std::clog << "File opened successfully!\n";
-    }
-    reader->processFile();
+    else { std::clog << "File opened successfully!\n"; }
+
+    reader->processFile(); // Read all cards data
 
     // Create new App called "MagicMayhem" (Yes, that's the title of this game)
     App& MagicMayhem = App::getInstance();
@@ -34,7 +34,6 @@ int main(int argc, char *argv[]) {
     }
     
     // Clear memory (mostly SDL pointers that are not smart)
-    MagicMayhem.clean();
 
     return EXIT_SUCCESS;
 }
