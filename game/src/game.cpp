@@ -1,26 +1,23 @@
-// Include .hpp with the same name
-#include "../include/game.hpp"
+// Local Headers
+#include "../include/App.hpp"
+#include "../include/Game.hpp"
 
-// include c++ headers
-#include <iostream>
-
-// Include SDL2 headers
+// SDL Headers
 #include <SDL2/SDL.h>
 
-// Include local headers
-#include "../include/app.hpp"
+// C++ Headers
+#include <iostream>
 
 void Game::handleEvents(SDL_Event event) {
     switch (event.type) {
-        // Add events to handle here
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
                 case SDLK_1:
-                    std::cout << "Switching mode to MainMenu...\n";
+                    std::clog << "Switching mode to MainMenu...\n";
                     App::getInstance().setMode(App::Mode::MainMenu);
                     break;
                 case SDLK_3:
-                    std::cout << "Switchin mode to Settings...\n";
+                    std::clog << "Switchin mode to Settings...\n";
                     App::getInstance().setMode(App::Mode::Settings);
                     break;
                 default:

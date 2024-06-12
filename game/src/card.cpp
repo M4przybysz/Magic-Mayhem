@@ -1,10 +1,12 @@
-#include "../include/card.hpp" // firstly include header with class
+// Local Headers
+#include "../include/Card.hpp"
 
-#include <algorithm> // other inlcudes goes here in alphabetical order
+// C++ Headers
+#include <algorithm>
 
 Card::Card() {
     cost_ = 1;
 }
-Card::Card(const int& cost) : cost_(cost) { // use initialization lists, 'cause they are cool
-    // look, it's empty *how fancy*
+Card::Card(const int& cost) : cost_(cost) {
+   
 }
