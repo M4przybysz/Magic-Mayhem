@@ -1,16 +1,16 @@
-#pragma once // #pragma once
+#pragma once
 
-// include c++ headers
-#include <iostream>
-#include <memory>
+// Local Headers
+#include "./MainMenu.hpp"
+#include "./Game.hpp"
+#include "./Settings.hpp"
 
-// Include SDL2 headers
+// SDL Headers
 #include <SDL2/SDL.h>
 
-// include local headers
-#include "./main_menu.hpp"
-#include "./game.hpp"
-#include "./settings.hpp"
+// C++ Headers
+#include <iostream>
+#include <memory>
 
 class App {
  public:

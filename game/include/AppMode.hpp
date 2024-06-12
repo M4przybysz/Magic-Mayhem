@@ -1,6 +1,6 @@
-#pragma once // #pragma once
+#pragma once
 
-// Include SDL2 libraries
+// SDL Headers
 #include <SDL2/SDL.h>
 
 // Virtual class that is a blueprint for all App modes
