@@ -1,5 +1,7 @@
+// Local Headers
 #include "../include/CardReader.hpp"
 
+// C++ Headers
 #include <fstream>
 
 void CardReader::openFile(const std::string& path) {

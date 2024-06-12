@@ -1,7 +1,7 @@
-#pragma once // #pragma once
+#pragma once
 
-// include local headers
-#include "./app_mode.hpp"
+// Local Headers
+#include "./AppMode.hpp"
 
 class Game : public AppMode {
  public:

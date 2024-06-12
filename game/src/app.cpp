@@ -1,31 +1,36 @@
-// Include .hpp with the same name
-#include "../include/app.hpp"
+// Local Headers
+#include "../include/App.hpp"
 
 SDL_Renderer* App::renderer = nullptr;
 
 App::App() { 
-    std::cout << "App created!\n";
+    std::clog << "App created!\n";
 
-    // Set default App mode
     currentMode_ = Mode::MainMenu;
     mode = std::make_unique<MainMenu>();
-    std::cout << "App is running in MainMenu (default) mode...\n"; 
+    std::clog << "App is running in MainMenu (default) mode...\n"; 
 }
-App::~App() { std::cout << "App destroyed!\n"; }
+
+App::~App() { 
+    SDL_DestroyWindow(window_);
+    SDL_DestroyRenderer(renderer);
+    SDL_Quit();
+    std::clog << "App destroyed!\n"; 
+}
 
 void App::setMode(Mode newMode) {
     currentMode_ = newMode;
     switch (newMode) {
         case Mode::MainMenu:
-            std::cout << "Current mode: MainMenu\n";
+            std::clog << "Current mode: MainMenu\n";
             mode = std::make_unique<MainMenu>();
             break;
         case Mode::Game:
-            std::cout << "Current mode: Game\n";
+            std::clog << "Current mode: Game\n";
             mode = std::make_unique<Game>();
             break;
         case Mode::Settings:
-            std::cout << "Current mode: Settings\n";
+            std::clog << "Current mode: Settings\n";
             mode = std::make_unique<Settings>();
             break;
         default:
@@ -33,25 +38,24 @@ void App::setMode(Mode newMode) {
     }
 }
 
-
-void App::init(const char* title, int x, int y, int width, int height, Uint32 flags) {
+void App::init(const std::string& title, const int& x, const int& y, const int& width, const int& height, const unsigned int& flags) {
 
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-        std::cout << "SDL initialized...\n";
+        std::clog << "SDL initialized...\n";
 
-        window_ = SDL_CreateWindow(title, x, y, width, height, flags);
-        if(window_) { std::cout << "Window created...\n"; }
+        window_ = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
+        if(window_) { std::clog << "Window created...\n"; }
         else { std::cerr << "Couldn't create a window!\n"; }
 
         renderer = SDL_CreateRenderer(window_, 1, 0);
         if(renderer) { 
-            std::cout << "Renderer created...\n";
+            std::clog << "Renderer created...\n";
             SDL_SetRenderDrawColor(renderer, 127, 0, 255, 255);
         }
         else { std::cerr << "Couldn't create a renderer!\n"; }
 
         isRunning_ = true;
-        std::cout << "Magic Mayhem is running!!!\n";
+        std::clog << "Magic Mayhem is running!!!\n";
     }
     else {
         std::cerr << "Couldn't initialize SDL!\n";
@@ -69,7 +73,7 @@ void App::handleEvents() {
     switch(event.type) {
         case SDL_QUIT: // Close a window.
             isRunning_ = false;
-            std::cout << "Window closed...\n";
+            std::clog << "Window closed...\n";
             break;
         
         // Add more events to handle here
@@ -93,10 +97,4 @@ void App::render() {
     mode->render();
 
     SDL_RenderPresent(renderer);
-}
-
-void App::clean() {
-    SDL_DestroyWindow(window_);
-    SDL_DestroyRenderer(renderer);
-    SDL_Quit();
 }

@@ -1,15 +1,15 @@
-#pragma once // do this (#define is cringe)
+#pragma once
 
 class Card {
- public: // one space before classificator
+ public:
     Card();
-    Card(const int& cost); // const reference everything you can
+    Card(const int& cost);
 
-    int getCost() const { return cost_; } // one line funcs like getters and setters should be in class declaration like this // also const functions that doesn't change the object
+    int getCost() const { return cost_; }
 
     void setCost(const int& cost) { cost_ = cost; }
 
 
  private:
-    int cost_; // default values should be defined in constructors
+    int cost_;
 };

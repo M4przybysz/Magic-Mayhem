@@ -1,7 +1,9 @@
 #pragma once
 
+// Local Headers
 #include "CardInfo.hpp"
 
+// C++ Headers
 #include <map>
 #include <string>
 #include <vector>

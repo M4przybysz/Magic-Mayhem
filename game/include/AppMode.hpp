@@ -1,6 +1,6 @@
-#pragma once // #pragma once
+#pragma once
 
-// Include SDL2 libraries
+// SDL Headers
 #include <SDL2/SDL.h>
 
 // Virtual class that is a blueprint for all App modes
@@ -8,7 +8,7 @@
 class AppMode {
  public:
     virtual ~AppMode() {}
-    virtual void handleEvents(SDL_Event event) {}
-    virtual void update() {}
-    virtual void render() {}
+    virtual void handleEvents(SDL_Event event) = 0;
+    virtual void update() = 0;
+    virtual void render() = 0;
 };
