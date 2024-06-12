@@ -2,7 +2,7 @@
 
 #include <fstream>
 
-void Reader::CardReader::openFile(const std::string& path) {
+void CardReader::openFile(const std::string& path) {
     pathToCardList_ = path;
 
     std::ifstream file(pathToCardList_);
@@ -13,33 +13,33 @@ void Reader::CardReader::openFile(const std::string& path) {
     }
 }
 
-bool Reader::CardReader::isFileOpen() {
+bool CardReader::isFileOpen() {
     return !file_.empty();
 }
 
-void Reader::CardReader::processFile() {
+void CardReader::processFile() {
     CardInfo info = CardInfo();
     int id = 0;
-    for(const auto& el : file_) {
-        std::string nameOfAtribute = el.substr(0, el.find_first_of(':'));
-        
+    for(const auto& line : file_) {
+        std::string nameOfAtribute = line.substr(0, line.find_first_of(':'));
+
         if (nameOfAtribute == "id") {
-            id = std::stoi(el.substr(el.find_first_of(':') + 1, 69));
+            id = std::stoi(line.substr(line.find_first_of(':') + 1, 69));
             info.setID(id);
         } else if (nameOfAtribute == "name") {
-            info.setName(el.substr(el.find_first_of('\"') + 1, el.size() - el.find_first_of('\"') - 2));
+            info.setName(line.substr(line.find_first_of('\"') + 1, line.size() - line.find_first_of('\"') - 2));
         } else if (nameOfAtribute == "attack") {
-            info.setAttack(std::stoi(el.substr(el.find_first_of(':') + 1, 69)));
+            info.setAttack(std::stoi(line.substr(line.find_first_of(':') + 1, 69)));
         } else if (nameOfAtribute == "hp") {
-            info.setHP(std::stoi(el.substr(el.find_first_of(':') + 1, 69)));
+            info.setHP(std::stoi(line.substr(line.find_first_of(':') + 1, 69)));
         } else if (nameOfAtribute == "cost") {
-            info.setCost(std::stoi(el.substr(el.find_first_of(':') + 1, 69)));
+            info.setCost(std::stoi(line.substr(line.find_first_of(':') + 1, 69)));
         } else if (nameOfAtribute == "points") {
-            info.setPoints(std::stoi(el.substr(el.find_first_of(':') + 1, 69)));
+            info.setPoints(std::stoi(line.substr(line.find_first_of(':') + 1, 69)));
         } else if (nameOfAtribute == "description") {
-            info.setDescription(el.substr(el.find_first_of('\"') + 1, el.size() - el.find_first_of('\"') - 2));
+            info.setDescription(line.substr(line.find_first_of('\"') + 1, line.size() - line.find_first_of('\"') - 2));
         } else if (nameOfAtribute == "imagePath") {
-            info.setImagePath(el.substr(el.find_first_of('\"') + 1, el.size() - el.find_first_of('\"') - 2));
+            info.setImagePath(line.substr(line.find_first_of('\"') + 1, line.size() - line.find_first_of('\"') - 2));
             cards_.insert(std::pair<int, CardInfo>(id, info));
         }
     }
