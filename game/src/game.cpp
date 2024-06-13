@@ -27,7 +27,7 @@ void Game::handleEvents(SDL_Event event) {
     }
 }
 
-void Game::update() {
+void Game::update(const double& deltaTime) {
 
 }
 

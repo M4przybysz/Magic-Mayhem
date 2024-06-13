@@ -27,7 +27,7 @@ void MainMenu::handleEvents(SDL_Event event) {
     }
 }
 
-void MainMenu::update() {
+void MainMenu::update(const double& deltaTime) {
     // Don't know if it is needed for main menu, but we may add some funny stuff here
 }
 

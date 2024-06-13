@@ -13,8 +13,11 @@ App::App() {
 
 App::~App() { 
     SDL_DestroyWindow(window_);
+    std::clog << "Window destroyed...\n";
     SDL_DestroyRenderer(renderer);
+    std::clog << "Renderer destroyed...\n";
     SDL_Quit();
+    std::clog << "SDL quitted...\n";
     std::clog << "App destroyed!\n"; 
 }
 
@@ -22,15 +25,15 @@ void App::setMode(Mode newMode) {
     currentMode_ = newMode;
     switch (newMode) {
         case Mode::MainMenu:
-            std::clog << "Current mode: MainMenu\n";
+            std::clog << "Current AppMode: MainMenu\n";
             mode = std::make_unique<MainMenu>();
             break;
         case Mode::Game:
-            std::clog << "Current mode: Game\n";
+            std::clog << "Current AppMode: Game\n";
             mode = std::make_unique<Game>();
             break;
         case Mode::Settings:
-            std::clog << "Current mode: Settings\n";
+            std::clog << "Current AppMode: Settings\n";
             mode = std::make_unique<Settings>();
             break;
         default:
@@ -66,7 +69,6 @@ void App::init(const std::string& title, const int& x, const int& y, const int& 
         std::cerr << "Couldn't initialize SDL!\n";
         isRunning_ = false;
     }
-
 }
 
 void App::handleEvents() {
@@ -91,8 +93,8 @@ void App::handleEvents() {
     mode->handleEvents(event);
 }
 
-void App::update() {
-    mode->update(); // "No shit, Sherlock." It just looks funy
+void App::update(const double& deltaTime) {
+    mode->update(deltaTime); // "No shit, Sherlock." It looks funny
 }
 
 void App::render() {

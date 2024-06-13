@@ -28,7 +28,7 @@ void Settings::handleEvents(SDL_Event event) {
     }
 }
 
-void Settings::update() {
+void Settings::update(const double& deltaTime) {
 
 }
 

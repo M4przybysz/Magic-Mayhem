@@ -37,7 +37,7 @@ class App {
     bool isRunning() { return isRunning_; };
     
     void handleEvents();
-    void update();
+    void update(const double& deltaTime);
     void render();
 
     static SDL_Renderer* renderer;
