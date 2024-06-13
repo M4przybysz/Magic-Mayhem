@@ -26,14 +26,30 @@ int main(int argc, char *argv[]) {
     // Initialize SDL and App's window and renderer
     MagicMayhem.init("MAGIC MAYHEM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_ALLOW_HIGHDPI);
 
+    // Define expected FPS and expectedFrameTime 
+    const int FPS = 60;
+    const double expectedFrameTime = 1000 / FPS; // 1/60 of a second
+
+    // Define time counting variables
+    Uint32 frameStart;
+    Uint32 deltaTime;
+
     // Main loop
     while(MagicMayhem.isRunning()) {
+        // Get time at the start of a frame
+        frameStart = SDL_GetTicks();
+
+        // Do all App stuff (handling events, updating and rendering of current AppMode)
         MagicMayhem.handleEvents();
         MagicMayhem.update();
         MagicMayhem.render();
+
+        // Get time after rendering
+        deltaTime = SDL_GetTicks() - frameStart;
+
+        // Delay frame so it will be constant 60 FPS
+        if (deltaTime < expectedFrameTime) { SDL_Delay(expectedFrameTime - deltaTime); }
     }
-    
-    // Clear memory (mostly SDL pointers that are not smart)
 
     return EXIT_SUCCESS;
 }
