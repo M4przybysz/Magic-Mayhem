@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     // Define expected FPS and FRAME_DELAY 
     const int FPS = 60;
     const int FRAME_DELAY = 1000 / FPS;         // 1/60 of a second (in miliseconds)
-    const double UPDATE_INTERVAL = 1.0 / FPS;   // also 1/60 of a second (in seconds)
+    const double UPDATE_INTERVAL = 1.0 / 60;    // also 1/60 of a second (in seconds)
 
     //=======================================================================================================================================
     // UPDATE_INTERVAL is separated from FRAME_DELAY because of separating render and update.
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 
         // Delay frame so it will be constant 60 FPS
         frameTime = SDL_GetTicks() - frameStart;
-        if (FRAME_DELAY > lastUpdate) { SDL_Delay(FRAME_DELAY - frameTime); }
+        if (FRAME_DELAY > frameTime) { SDL_Delay(FRAME_DELAY - frameTime); }
     }
 
     return EXIT_SUCCESS;
