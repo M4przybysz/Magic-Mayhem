@@ -28,13 +28,21 @@ int main(int argc, char *argv[]) {
 
     // Define expected FPS and FRAME_DELAY 
     const int FPS = 60;
-    const int FRAME_DELAY = 1000 / FPS; // 1/60 of a second
-    const double PHYSICS_UPDATE_INTERVAL = 1000 / FPS; // also 1/60 of a second
+    const int FRAME_DELAY = 1000 / FPS;         // 1/60 of a second (in miliseconds)
+    const double UPDATE_INTERVAL = 1.0 / FPS;   // also 1/60 of a second (in seconds)
+
+    //=======================================================================================================================================
+    // UPDATE_INTERVAL is separated from FRAME_DELAY because of separating render and update.
+    // Independent physics and graphics give the same physics update speed with different frame rates...
+    // ...and thus a better feeling while playing the game.
+    // With physics and graphics not separated the update will slow down when FPS drop or speed up when FPS rise.
+    //=======================================================================================================================================
 
     // Define time counting variables
     Uint32 frameStart;
-    int frameTime;
-    double accumulator = 0.0;
+    Uint32 lastUpdate = SDL_GetTicks(); 
+    int frameTime;                      // used to calculate time to wait at the end of the frame
+    double accumulator = 0.0;           // used to count update loops
     double deltaTime = 0.0;
 
     // Main loop
@@ -45,20 +53,23 @@ int main(int argc, char *argv[]) {
         // Handle events like keyboard inputs
         MagicMayhem.handleEvents();
 
-        // Update game physics in regular intervals (update intependent from render)
-        deltaTime = (SDL_GetTicks() - frameStart) / 1000.0;
+        // Calculate deltaTime
+        deltaTime = (SDL_GetTicks() - lastUpdate) / 1000.0;
+        lastUpdate = SDL_GetTicks();
         accumulator += deltaTime;
-        while(accumulator >= PHYSICS_UPDATE_INTERVAL) {
-            MagicMayhem.update(PHYSICS_UPDATE_INTERVAL);
-            accumulator -= PHYSICS_UPDATE_INTERVAL;   
-        }
+
+        // Update based on UPDATE_INTERVAL (update is intependent from render)
+        while(accumulator >= UPDATE_INTERVAL) {
+            MagicMayhem.update(UPDATE_INTERVAL);
+            accumulator -= UPDATE_INTERVAL;   
+        } 
 
         // Render all objects on screen
         MagicMayhem.render();
 
         // Delay frame so it will be constant 60 FPS
         frameTime = SDL_GetTicks() - frameStart;
-        if (FRAME_DELAY > frameTime) { SDL_Delay(FRAME_DELAY - frameTime); }
+        if (FRAME_DELAY > lastUpdate) { SDL_Delay(FRAME_DELAY - frameTime); }
     }
 
     return EXIT_SUCCESS;

@@ -50,14 +50,14 @@ void App::init(const std::string& title, const int& x, const int& y, const int& 
         window_ = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
         if(window_) { 
             std::clog << "Window created...\n"; 
-            
+
             // App needs a window_ to create renderer
             renderer = SDL_CreateRenderer(window_, 1, 0);
             if(renderer) { 
                 std::clog << "Renderer created...\n";
                 SDL_SetRenderDrawColor(renderer, 127, 0, 255, 255);
 
-                // App needs a renderer to display everything
+                // App needs a renderer to display anything
                 isRunning_ = true;
                 std::clog << "Magic Mayhem is running!!!\n";
             }
