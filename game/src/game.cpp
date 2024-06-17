@@ -13,11 +13,9 @@ void Game::handleEvents(SDL_Event event) {
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
                 case SDLK_1:
-                    std::clog << "Switching mode to MainMenu...\n";
                     App::getInstance().setMode(App::Mode::MainMenu);
                     break;
                 case SDLK_3:
-                    std::clog << "Switchin mode to Settings...\n";
                     App::getInstance().setMode(App::Mode::Settings);
                     break;
                 default:
@@ -29,7 +27,7 @@ void Game::handleEvents(SDL_Event event) {
     }
 }
 
-void Game::update() {
+void Game::update(const double& deltaTime) {
 
 }
 
