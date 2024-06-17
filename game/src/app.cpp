@@ -43,21 +43,17 @@ void App::setMode(Mode newMode) {
 
 void App::init(const std::string& title, const int& x, const int& y, const int& width, const int& height, const unsigned int& flags) {
     // Init all SDL shit or it won't work
-    if(SDL_Init(SDL_INIT_EVERYTHING) == 0) {
+    if(SDL_Init(SDL_INIT_EVERYTHING) == 0) { // App needs SDL initialized to do anything
         std::clog << "SDL initialized...\n";
-
-        // App needs SDL initialized to do anything
         window_ = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
-        if(window_) { 
-            std::clog << "Window created...\n"; 
 
-            // App needs a window_ to create renderer
+        if(window_) { // App needs a window_ to create renderer
+            std::clog << "Window created...\n"; 
             renderer = SDL_CreateRenderer(window_, 1, 0);
-            if(renderer) { 
+
+            if(renderer) { // App needs a renderer to display anything
                 std::clog << "Renderer created...\n";
                 SDL_SetRenderDrawColor(renderer, 127, 0, 255, 255);
-
-                // App needs a renderer to display anything
                 isRunning_ = true;
                 std::clog << "Magic Mayhem is running!!!\n";
             }
@@ -72,9 +68,11 @@ void App::init(const std::string& title, const int& x, const int& y, const int& 
 }
 
 void App::handleEvents() {
-    // Get new event
-    SDL_Event event;
-    SDL_PollEvent(&event);
+    //! Since in one frame we can have multiple events happening the section below needs to be changed into a loop that...
+    //! ... will take and handle all (or most) events in one frame.
+
+    SDL_Event event; // variable to store events
+    SDL_PollEvent(&event); // get new event
 
     // Handle basic App events
     switch(event.type) {
@@ -83,14 +81,13 @@ void App::handleEvents() {
             std::clog << "Window closed...\n";
             break;
         
-        // Add more events to be handled here
+        // >>>Add more events to be handled here<<<
 
         default:
             break;
     }
 
-    // Handle events for specific App mode
-    mode->handleEvents(event);
+    mode->handleEvents(event); // Handle events for specific App mode
 }
 
 void App::update(const double& deltaTime) {
@@ -98,12 +95,10 @@ void App::update(const double& deltaTime) {
 }
 
 void App::render() {
-    // Clear renderer to show new things on screen
-    SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer);      // Clear renderer to show new things on screen
 
-    // Add stuff to render here
+    // >>>Add stuff to render here<<<
     mode->render();
 
-    // Show things on screen
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer);    // Show everything on screen
 }
