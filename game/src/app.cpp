@@ -97,7 +97,7 @@ void App::update(const double& deltaTime) {
 void App::render() {
     SDL_RenderClear(renderer);      // Clear renderer to show new things on screen
 
-    // >>>Add stuff to render here<<<
+    // >>> Add stuff to render here <<<
     mode->render();
 
     SDL_RenderPresent(renderer);    // Show everything on screen
